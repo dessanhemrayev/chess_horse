@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.bg {
+    position: relative;
+}
+
+.bg::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    left: 0;
+    width: 90%;
+    height: 90%;
+    background: orange;
+    z-index: 1;
+    margin: 2.55% 5% 0 5%;
+    transform: rotate(-10deg);
+}
+
+.green {
+    border: 2px solid green
+}
+
+.bg-green {
+    position: relative;
+}
+
+.bg-green::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    left: 0;
+    width: 90%;
+    height: 90%;
+    background: #9bfeb5;
+    z-index: 1;
+    margin: 2.55% 5% 0 5%;
+    transform: rotate(-10deg);
+}
+
+h1 {
+    margin-bottom: 40px;
+}
+
+
+/* ======================== */
+
+#field {
+    width: 320px;
+    height: 320px;
+    box-sizing: content-box;
+    border: 1px solid black;
+}
+
+#field::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.chess-block {
+    width: 40px;
+    height: 40px;
+    float: left;
+}
+
+.bg-black {
+    background: #525252;
+}
+
+.active {
+    background-image: url('./image/iconfinder_black_knight_754824.png');
+    background-color: orange;
+    background-size: contain;
+}
+
+.green {
+    background: green;
+}
