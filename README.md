@@ -14,3 +14,15 @@
 - Стрелками на клавиатуре можно перемещать фокус по клеткам; Enter или пробел выбирает клетку.
 
 Правила ходов реализованы как восемь смещений коня с проверкой границ доски. Для корректного открытия проекта нужен современный браузер с поддержкой JavaScript.
+
+## Публикация сайта на GitHub Pages
+
+Workflow `.github/workflows/deploy.yml` публикует статический сайт из корня репозитория после push в `master`. Его также можно запустить вручную во вкладке **Actions**. При первой настройке выберите **Settings → Pages → GitHub Actions**.
+
+После успешного деплоя сайт будет доступен по адресу <https://dessanhemrayev.github.io/chess_horse/>.
+
+## Публикация документации в GitHub Wiki
+
+Workflow `.github/workflows/publish-wiki.yml` копирует `README.md` в главную страницу Wiki (`Home.md`) после push в `master`. Его также можно запустить вручную во вкладке **Actions**. Другие страницы Wiki workflow не меняет.
+
+Для записи в отдельный git-репозиторий Wiki создайте classic personal access token с правом записи в публичный репозиторий и добавьте его в **Settings → Secrets and variables → Actions** под именем `WIKI_TOKEN`. После этого изменения `README.md` будут автоматически появляться в Wiki.
