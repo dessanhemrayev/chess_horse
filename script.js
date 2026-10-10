@@ -77,6 +77,11 @@ board.addEventListener('click', (event) => {
     const isLegalMove = knightPosition && getLegalMoves(...knightPosition)
         .some(([file, rank]) => file === nextPosition[0] && rank === nextPosition[1]);
 
+    if (knightPosition && !isLegalMove) {
+        status.textContent = 'Недопустимый ход. Выберите подсвеченную клетку.';
+        return;
+    }
+
     if (isLegalMove) {
         moveCount++;
         moveCountLabel.textContent = moveCount;
