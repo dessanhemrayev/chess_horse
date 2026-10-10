@@ -1,34 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ход конем</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <script src="https://vk.com/js/api/openapi.js?168" type="text/javascript"></script>
-    
 </head>
 
- 
-    <div id="vk_auth">Go!!</div>
-    <button onclick="foo()">Жми!</button>
-<script type="text/javascript">
-    function foo(){
-     VK.Widgets.Auth("vk_auth", {"authUrl":"/dev/Login"});
-    }
- 
-</script>
 <body>
     <div class="container">
-        <div class="left">
-            <h1 class="text-center">Конем ходи!</h1>
-            <div id="field"></div>
-
-        </div>
-
+        <header class="intro">
+            <p class="eyebrow">Шахматная разминка</p>
+            <h1>Ход конём</h1>
+            <p class="instructions">Выберите клетку, чтобы увидеть возможные ходы. Нажмите подсвеченную клетку, чтобы переместить коня.</p>
+        </header>
+        <main class="game" aria-label="Тренажёр ходов коня">
+            <div class="board-frame">
+                <div id="field" role="group" aria-label="Шахматная доска"></div>
+            </div>
+            <section class="game-info" aria-label="Состояние игры">
+                <p id="status" aria-live="polite">Выберите клетку для коня.</p>
+                <p class="move-count">Ходы: <span id="move-count">0</span></p>
+                <button id="reset" type="button">Начать заново</button>
+            </section>
+        </main>
     </div>
 
     <script src="script.js"></script>

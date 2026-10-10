@@ -1,0 +1,48 @@
+name: Publish documentation to GitHub Wiki
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wiki
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Sync README to Wiki
+        env:
+          WIKI_TOKEN: ${{ secrets.WIKI_TOKEN }}
+        run: |
+          if [ -z "$WIKI_TOKEN" ]; then
+            echo "::error::Add a WIKI_TOKEN secret with write access to the repository Wiki."
+            exit 1
+          fi
+
+          auth_header="$(printf 'x-access-token:%s' "$WIKI_TOKEN" | base64 -w 0)"
+          echo "::add-mask::$auth_header"
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $auth_header" \
+            clone "https://github.com/${GITHUB_REPOSITORY}.wiki.git" wiki
+
+          cp README.md wiki/Home.md
+          git -C wiki config user.name "github-actions[bot]"
+          git -C wiki config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C wiki config http.https://github.com/.extraheader "AUTHORIZATION: basic $auth_header"
+          git -C wiki add Home.md
+
+          if git -C wiki diff --cached --quiet; then
+            echo "Wiki Home.md is already up to date."
+            exit 0
+          fi
+
+          git -C wiki commit -m "docs: sync Wiki from README"
+          git -C wiki push origin HEAD

@@ -1,97 +1,213 @@
+:root {
+    color-scheme: light;
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #172820;
+    background: #f2f0e8;
+    font-synthesis: none;
+}
+
 * {
-    margin: 0;
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    background:
+        linear-gradient(135deg, transparent 49.7%, rgba(23, 40, 32, 0.035) 50%, transparent 50.3%) 0 0 / 34px 34px,
+        #f2f0e8;
 }
 
-.text-center {
-    text-align: center;
+button {
+    font: inherit;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 40px auto;
+    width: min(100% - 40px, 980px);
+    margin: 0 auto;
+    padding: 68px 0;
 }
 
-.bg {
-    position: relative;
+.intro {
+    max-width: 560px;
+    margin: 0 auto 36px;
+    text-align: center;
 }
 
-.bg::before {
-    content: "";
-    display: block;
-    position: absolute;
-    left: 0;
-    left: 0;
-    width: 90%;
-    height: 90%;
-    background: orange;
-    z-index: 1;
-    margin: 2.55% 5% 0 5%;
-    transform: rotate(-10deg);
-}
-
-.green {
-    border: 2px solid green
-}
-
-.bg-green {
-    position: relative;
-}
-
-.bg-green::before {
-    content: "";
-    display: block;
-    position: absolute;
-    left: 0;
-    left: 0;
-    width: 90%;
-    height: 90%;
-    background: #9bfeb5;
-    z-index: 1;
-    margin: 2.55% 5% 0 5%;
-    transform: rotate(-10deg);
+.eyebrow {
+    margin: 0 0 10px;
+    color: #557565;
+    font: 700 12px/1.4 Arial, sans-serif;
+    text-transform: uppercase;
 }
 
 h1 {
-    margin-bottom: 40px;
+    margin: 0;
+    font-size: 52px;
+    font-weight: 600;
 }
 
+.instructions {
+    max-width: 440px;
+    margin: 14px auto 0;
+    color: #52635a;
+    font: 16px/1.55 Arial, sans-serif;
+}
 
-/* ======================== */
+.game {
+    display: grid;
+    grid-template-columns: minmax(280px, 560px) minmax(190px, 1fr);
+    align-items: center;
+    gap: 36px;
+    max-width: 790px;
+    margin: 0 auto;
+}
+
+.board-frame {
+    padding: 10px;
+    background: #263d32;
+    box-shadow: 0 16px 34px rgba(27, 44, 34, 0.16);
+}
 
 #field {
-    width: 320px;
-    height: 320px;
-    box-sizing: content-box;
-    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-template-rows: repeat(8, minmax(0, 1fr));
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
 }
 
-#field::after {
-    content: "";
-    display: block;
-    clear: both;
+.square {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
 }
 
-.chess-block {
-    width: 40px;
-    height: 40px;
-    float: left;
+.square-light {
+    background: #e9e4d2;
 }
 
-.bg-black {
-    background: #525252;
+.square-dark {
+    background: #77927e;
 }
 
-.active {
-    background-image: url('./image/iconfinder_black_knight_754824.png');
-    background-color: orange;
-    background-size: contain;
+.square::after {
+    position: absolute;
+    right: 4px;
+    bottom: 3px;
+    color: rgba(23, 40, 32, 0.6);
+    content: attr(data-coordinate);
+    font: 10px/1 Arial, sans-serif;
 }
 
-.green {
-    background: green;
+.square-dark::after {
+    color: rgba(255, 255, 255, 0.76);
+}
+
+.square.is-legal {
+    background: #d2a94f;
+}
+
+.square.is-knight {
+    background: #c8784e;
+}
+
+.piece {
+    color: #fffaf0;
+    font-size: 52px;
+    line-height: 1;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
+}
+
+.square:focus-visible,
+#reset:focus-visible {
+    z-index: 1;
+    outline: 3px solid #172820;
+    outline-offset: -4px;
+}
+
+.game-info {
+    align-self: center;
+    font: 15px/1.55 Arial, sans-serif;
+}
+
+#status {
+    min-height: 72px;
+    margin: 0 0 18px;
+    color: #344a3d;
+}
+
+.move-count {
+    margin: 0 0 22px;
+    color: #557565;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+#reset {
+    min-height: 44px;
+    padding: 0 16px;
+    border: 1px solid #263d32;
+    background: #263d32;
+    color: white;
+    cursor: pointer;
+}
+
+#reset:hover {
+    background: #3b5948;
+}
+
+@media (max-width: 680px) {
+    .container {
+        width: min(100% - 28px, 480px);
+        padding: 38px 0;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .piece {
+        font-size: 36px;
+    }
+
+    .intro {
+        margin-bottom: 24px;
+    }
+
+    .game {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .game-info {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 4px 16px;
+    }
+
+    #status {
+        grid-column: 1 / -1;
+        min-height: 0;
+        margin-bottom: 8px;
+    }
+
+    .move-count {
+        margin: 0;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .square {
+        transition: background-color 120ms ease;
+    }
 }
